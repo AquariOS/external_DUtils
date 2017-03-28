@@ -481,7 +481,7 @@ public final class DUActionUtils {
           }
           inputStream = context.getContentResolver().openInputStream(uri);
 
-          //decode the stream again, with the calculated SampleSize option, 
+          //decode the stream again, with the calculated SampleSize option,
           //and allocate the memory. Also add some metrics options to take a proper density
           options.inJustDecodeBounds = false;
           DisplayMetrics metrics = context.getResources().getDisplayMetrics();
