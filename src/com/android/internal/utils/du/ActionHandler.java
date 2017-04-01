@@ -173,6 +173,8 @@ public class ActionHandler {
         VolumePanel(SYSTEMUI_TASK_VOLUME_PANEL, SYSTEMUI, "label_action_volume_panel", "ic_sysbar_volume_panel"),
         EditingSmartbar(SYSTEMUI_TASK_EDITING_SMARTBAR, SYSTEMUI, "label_action_editing_smartbar", "ic_sysbar_editing_smartbar"),
         SplitScreen(SYSTEMUI_TASK_SPLIT_SCREEN, SYSTEMUI, "label_action_split_screen", "ic_sysbar_docked");
+        MediaArrowLeft(SYSTEMUI_TASK_MEDIA_PREVIOUS, SYSTEMUI, "label_action_media_left", "ic_skip_previous"),
+        MediaArrowRight(SYSTEMUI_TASK_MEDIA_NEXT, SYSTEMUI, "label_action_media_right", "ic_skip_next");
 
         String mAction;
         String mResPackage;
@@ -212,6 +214,7 @@ public class ActionHandler {
             SystemAction.VolumePanel, SystemAction.ClearNotifications,
             SystemAction.EditingSmartbar, SystemAction.SplitScreen,
             SystemAction.RegionScreenshot
+            SystemAction.MediaArrowRight
     };
 
     public static class ActionIconResources {
@@ -255,7 +258,9 @@ public class ActionHandler {
                     || TextUtils.equals(action, SYSTEMUI_TASK_IME_NAVIGATION_LEFT)
                     || TextUtils.equals(action, SYSTEMUI_TASK_IME_NAVIGATION_RIGHT)
                     || TextUtils.equals(action, SYSTEMUI_TASK_IME_NAVIGATION_UP)
-                    || TextUtils.equals(action, SYSTEMUI_TASK_IME_SWITCHER)) {
+                    || TextUtils.equals(action, SYSTEMUI_TASK_IME_SWITCHER)
+                    || TextUtils.equals(action, SYSTEMUI_TASK_MEDIA_PREVIOUS)
+                    || TextUtils.equals(action, SYSTEMUI_TASK_MEDIA_NEXT)) {
                 continue;
             } else if (TextUtils.equals(action, SYSTEMUI_TASK_WIFIAP)
                     && !DUActionUtils.deviceSupportsMobileData(context)) {
