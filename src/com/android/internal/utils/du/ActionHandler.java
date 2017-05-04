@@ -172,7 +172,7 @@ public class ActionHandler {
         ClearNotifications(SYSTEMUI_TASK_CLEAR_NOTIFICATIONS, SYSTEMUI, "label_action_clear_notifications", "ic_sysbar_clear_notifications"),
         VolumePanel(SYSTEMUI_TASK_VOLUME_PANEL, SYSTEMUI, "label_action_volume_panel", "ic_sysbar_volume_panel"),
         EditingSmartbar(SYSTEMUI_TASK_EDITING_SMARTBAR, SYSTEMUI, "label_action_editing_smartbar", "ic_sysbar_editing_smartbar"),
-        SplitScreen(SYSTEMUI_TASK_SPLIT_SCREEN, SYSTEMUI, "label_action_split_screen", "ic_sysbar_docked");
+        SplitScreen(SYSTEMUI_TASK_SPLIT_SCREEN, SYSTEMUI, "label_action_split_screen", "ic_sysbar_docked"),
         MediaArrowLeft(SYSTEMUI_TASK_MEDIA_PREVIOUS, SYSTEMUI, "label_action_media_left", "ic_skip_previous"),
         MediaArrowRight(SYSTEMUI_TASK_MEDIA_NEXT, SYSTEMUI, "label_action_media_right", "ic_skip_next");
 
@@ -213,7 +213,7 @@ public class ActionHandler {
             SystemAction.ImeArrowUp, SystemAction.InAppSearch,
             SystemAction.VolumePanel, SystemAction.ClearNotifications,
             SystemAction.EditingSmartbar, SystemAction.SplitScreen,
-            SystemAction.RegionScreenshot
+            SystemAction.RegionScreenshot,
             SystemAction.MediaArrowRight
     };
 
@@ -919,8 +919,18 @@ public class ActionHandler {
 
                 if (pkg != null && !pkg.equals("com.android.systemui")
                         && !pkg.equals(defaultHomePackage)) {
+
+                    // Restore home screen stack before killing the app
+                    Intent home = new Intent(Intent.ACTION_MAIN, null);
+                    home.addCategory(Intent.CATEGORY_HOME);
+                    home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                    context.startActivity(home);
+
+                    // Kill the app
                     iam.forceStopPackage(pkg, UserHandle.USER_CURRENT);
 
+                    // Remove killed app from Recents
                     final ActivityManager am = (ActivityManager)
                             context.getSystemService(Context.ACTIVITY_SERVICE);
                     final List<ActivityManager.RecentTaskInfo> recentTasks =
